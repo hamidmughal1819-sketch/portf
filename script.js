@@ -364,3 +364,52 @@
     });
   }
 
+  /* ==============================
+     VIEW MORE BUTTONS
+     ============================== */
+  const viewMoreBtns = document.querySelectorAll('.view-more-btn');
+  viewMoreBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const targetId = btn.getAttribute('data-target');
+      const grid = document.getElementById(targetId);
+      if (grid) {
+        grid.classList.toggle('collapsed');
+        if (grid.classList.contains('collapsed')) {
+          btn.innerHTML = '<span>View More</span> <i class="fas fa-chevron-down"></i>';
+        } else {
+          btn.innerHTML = '<span>View Less</span> <i class="fas fa-chevron-up"></i>';
+        }
+      }
+    });
+  });
+
+
+  /* ==============================
+     STAT ITEM REPEL EFFECT
+     ============================== */
+  const statItems = document.querySelectorAll('.stat-item');
+  statItems.forEach(item => {
+    item.addEventListener('mousemove', (e) => {
+      const rect = item.getBoundingClientRect();
+      const centerX = rect.left + rect.width / 2;
+      const centerY = rect.top + rect.height / 2;
+      
+      const deltaX = e.clientX - centerX;
+      const deltaY = e.clientY - centerY;
+      
+      const moveX = -(deltaX * 0.35);
+      const moveY = -(deltaY * 0.35);
+      
+      item.style.transform = 'translate(' + moveX + 'px, ' + moveY + 'px) scale(1.05)';
+      
+      if (!item.classList.contains('animated-hover')) {
+        item.classList.add('animated-hover');
+      }
+    });
+    
+    item.addEventListener('mouseleave', () => {
+      item.style.transform = '';
+      item.classList.remove('animated-hover');
+    });
+  });
+
